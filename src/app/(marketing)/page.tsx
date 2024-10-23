@@ -7,9 +7,10 @@ import { NeonIcon } from './_icons/Neon'
 import { ClerkIcon } from './_icons/Clerk'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { subscriptionTiersInOrder } from '../data/subscriptionTiers'
+import { subscriptionTiersInOrder } from '../../data/subscriptionTiers'
 import { formatCompactNumber } from '@/lib/formatters'
 import { cn } from '@/lib/utils'
+import { BrandLogo } from '@/components/BrandLogo'
 
 /*
   text-balance for formatting on small screen sizes
@@ -51,7 +52,66 @@ export default function HomePage() {
           {subscriptionTiersInOrder.map(subscriptionTier => <PricingCard key={subscriptionTier.name} {...subscriptionTier} />)}
         </div>
       </section>
-      <footer className='container flex sm:flex-col justify-between items-center pt-16 pb-8 gap-8 sm:gap-4'>
+      <footer className='container pt-16 pb-8 flex flex-col sm:flex-row gap-8 sm:gap-4 items-start'>
+        <Link className='mr-8' href='/'><BrandLogo /></Link>
+        <div className='flex-1 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 text-lg'>
+          <FooterLinkGroup
+            title='Help'
+            links={[
+              { label: 'PPP Discounts', href: '#' },
+              { label: 'Discount API', href: '#' },
+            ]}
+          />
+          <FooterLinkGroup
+            title='Solutions'
+            links={[
+              { label: 'Newsletter', href: '#' },
+              { label: 'SaaS Business', href: '#' },
+              { label: 'Online Courses', href: '#' },
+            ]}
+          />
+          <FooterLinkGroup
+            title='Features'
+            links={[{ label: 'PPP Discounts', href: '#' }]}
+          />
+          <FooterLinkGroup
+            title='Tools'
+            links={[
+              { label: 'Salary Converter', href: '#' },
+              { label: 'Coupon Generator', href: '#' },
+              { label: 'Stripe App', href: '#' },
+            ]}
+          />
+          <FooterLinkGroup
+            title='Company'
+            links={[
+              { label: 'Affiliate', href: '#' },
+              { label: 'Twitter', href: '#' },
+              { label: 'Terms of Service', href: '#' },
+            ]}
+          />
+          <FooterLinkGroup
+            title='Integrations'
+            links={[
+              { label: 'Lemon Squeezy', href: '#' },
+              { label: 'Gumroad', href: '#' },
+              { label: 'Stripe', href: '#' },
+              { label: 'Chargebee', href: '#' },
+              { label: 'Paddle', href: '#' },
+            ]}
+          />
+          <FooterLinkGroup
+            title='Tutorials'
+            links={[
+              { label: 'Any Website', href: '#' },
+              { label: 'Lemon Squeezy', href: '#' },
+              { label: 'Gumroad', href: '#' },
+              { label: 'Stripe', href: '#' },
+              { label: 'Chargebee', href: '#' },
+              { label: 'Paddle', href: '#' },
+            ]}
+          />
+        </div>
       </footer>
     </>
   )
@@ -87,6 +147,21 @@ function Feature({ children, className }: { children: ReactNode, className?: str
     <div className={cn('flex items-center gap-2', className)}>
       <CheckIcon className='size-4 p-0.5 stroke-accent bg-accent/25 rounded-full' />
       <span>{children}</span>
+    </div>
+  )
+}
+
+function FooterLinkGroup({ title, links }: { title: string, links: { label: string, href: string }[] }) {
+  return (
+    <div className='flex flex-col gap-4'>
+      <h3 className='font-semibold'>{title}</h3>
+      <ul className='flex flex-col gap-2 text-sm'>
+        {links.map(({ label, href }) => (
+          <li key={href}>
+            <Link href={href}>{label}</Link>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
